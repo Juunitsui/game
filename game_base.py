@@ -34,10 +34,36 @@ class Skill:
     power: int
     cost: int
 
-    def use(self, user: 'Character', target: 'Character'):
-        """Placeholder for skill execution logic."""
-        # Implement damage and effect calculations here
-        raise NotImplementedError
+    def use(self, user: 'Character', target: 'Character', *, level: int = 1) -> int:
+        """Calculate and apply damage to ``target`` using this skill.
+
+        Parameters
+        ----------
+        user:
+            Character using the skill.
+        target:
+            Character receiving the attack.
+        level:
+            The level of the user. Defaults to ``1``.
+
+        Returns
+        -------
+        int
+            The amount of damage dealt.
+        """
+
+        if self.element in MAGIC_ELEMENTS:
+            attack = user.stats.magic_attack
+            defense = target.stats.magic_defense
+        else:
+            attack = user.stats.physical_attack
+            defense = target.stats.physical_defense
+
+        base = (112 / 9) * attack * (level + 9) * self.power
+        damage = int(base / max(defense, 1))
+
+        target.take_damage(damage)
+        return damage
 
 
 @dataclass
