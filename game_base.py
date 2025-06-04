@@ -58,21 +58,7 @@ class Character:
 
 # Example usage
 if __name__ == "__main__":
-    # Sample skills (no real logic yet)
-    fireball = Skill("Fireball", Element.FIRE, power=50, cost=10)
-    ice_spike = Skill("Ice Spike", Element.ICE, power=45, cost=10)
-    blazing_nova = Skill("Blazing Nova", Element.FIRE, power=100, cost=25)
+    from characters.hero import create_hero
 
-    hero_stats = Stats(hp=100, physical_attack=20, magic_attack=30,
-                       physical_defense=15, magic_defense=10, speed=5)
-
-    hero = Character(
-        name="Hero",
-        stats=hero_stats,
-        skill1=fireball,
-        skill2=ice_spike,
-        ultimate=blazing_nova,
-        element=Element.FIRE,
-    )
-
+    hero = create_hero()
     print(hero)
